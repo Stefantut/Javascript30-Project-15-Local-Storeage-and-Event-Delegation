@@ -51,6 +51,11 @@
         <input type="text" name="item" placeholder="Item Name" required />
         <input type="submit" value="+ Add Item" />
       </form>
+      <div class="buttons">
+        <button class="button delete-all">&#9940; Delete All</button>
+        <button class="button check-all">&#9989; Check All</button>
+        <button class="button uncheck-all">&#10062; Uncheck All</button>
+      </div>
     </div>
 
     <script>
@@ -58,6 +63,10 @@
       const itemsList = document.querySelector(".plates");
       // to retrieve list items on load from local storage
       const items = JSON.parse(localStorage.getItem("items")) || [];
+
+      const deleteItems = document.querySelector(".delete-all");
+      const checkItems = document.querySelector(".check-all");
+      const uncheckItems = document.querySelector(".uncheck-all");
 
       function addItem(e) {
         e.preventDefault();
@@ -79,16 +88,23 @@
         platesList.innerHTML = plates
           .map((plate, i) => {
             return `
-        <li>
-          <input type='checkbox' data-index=${i} id ="item${i}" ${
+              <li>
+                <input type='checkbox' data-index=${i} id ="item${i}" ${
               plate.done ? "checked" : ""
             }/>
-          <label for="item${i}">${plate.text}</label>
-        </li>
-  `;
+                <label for="item${i}">${plate.text}</label>
+              </li>
+        `;
           })
           .join("");
       }
+
+      function deleteAll() {
+        items.splice(0, items.length); // will delete all items
+        populateList(items, itemsList); // will update the list
+        localStorage.setItem("items", JSON.stringify(items)); // will push changes to local storage
+      }
+      deleteItems.addEventListener("click", deleteAll);
 
       function toggleDone(e) {
         if (!e.target.matches("input")) return;
