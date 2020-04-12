@@ -55,7 +55,8 @@
         <button class="button delete-all">&#9940; Delete All</button>
         <button class="button check-all">&#9989; Check All</button>
         <button class="button uncheck-all">&#10062; Uncheck All</button>
-        <button class="button toggle">&#10062; Toggle Checked</button>
+        <button class="button toggle">&#10062; Toggle All</button>
+        <button class="button sort-a-z">&#10062; Sort A-Z</button>
       </div>
     </div>
 
@@ -69,6 +70,7 @@
       const checkItems = document.querySelector(".check-all");
       const uncheckItems = document.querySelector(".uncheck-all");
       const toggleItems = document.querySelector(".toggle");
+      const sortAZ = document.querySelector(".sort-a-z");
 
       function addItem(e) {
         e.preventDefault();
@@ -90,13 +92,13 @@
         platesList.innerHTML = plates
           .map((plate, i) => {
             return `
-              <li>
-                <input type='checkbox' data-index=${i} id ="item${i}" ${
+                    <li>
+                      <input type='checkbox' data-index=${i} id ="item${i}" ${
               plate.done ? "checked" : ""
             }/>
-                <label for="item${i}">${plate.text}</label>
-              </li>
-        `;
+                      <label for="item${i}">${plate.text}</label>
+                    </li>
+              `;
           })
           .join("");
       }
@@ -116,12 +118,13 @@
 
       function deleteAll() {
         items.splice(0, items.length); // will delete all items
-        populateList(items, itemsList); // will update the list
         localStorage.setItem("items", JSON.stringify(items)); // will push changes to local storage
+        populateList(items, itemsList); // will update the list
       }
       function checkAll() {
         items.forEach((item) => {
           item.done = true;
+          localStorage.setItem("items", JSON.stringify(items)); // will push changes to local storage
           populateList(items, itemsList);
         });
       }
@@ -129,12 +132,14 @@
       function uncheckAll() {
         items.forEach((item) => {
           item.done = false;
+          localStorage.setItem("items", JSON.stringify(items)); // will push changes to local storage
           populateList(items, itemsList);
         });
       }
       function toggleAll() {
         items.forEach((item) => {
           item.done = !item.done;
+          localStorage.setItem("items", JSON.stringify(items)); // will push changes to local storage
           populateList(items, itemsList);
         });
       }
@@ -142,6 +147,21 @@
       checkItems.addEventListener("click", checkAll);
       uncheckItems.addEventListener("click", uncheckAll);
       toggleItems.addEventListener("click", toggleAll);
+
+      // Compare items to sort a-z
+      function compare(a, b) {
+        const textA = a.text.toUpperCase();
+        const textB = b.text.toUpperCase();
+        let comparison = 0;
+        textA > textB ? (comparison = 1) : (comparison = -1);
+        return comparison;
+      }
+
+      sortAZ.addEventListener("click", () => {
+        items.sort(compare);
+        localStorage.setItem("items", JSON.stringify(items)); // will push changes to local storage
+        populateList(items, itemsList);
+      });
     </script>
   </body>
 </html>
