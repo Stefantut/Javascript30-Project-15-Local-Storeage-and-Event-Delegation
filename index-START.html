@@ -99,13 +99,6 @@
           .join("");
       }
 
-      function deleteAll() {
-        items.splice(0, items.length); // will delete all items
-        populateList(items, itemsList); // will update the list
-        localStorage.setItem("items", JSON.stringify(items)); // will push changes to local storage
-      }
-      deleteItems.addEventListener("click", deleteAll);
-
       function toggleDone(e) {
         if (!e.target.matches("input")) return;
         const el = e.target;
@@ -118,6 +111,17 @@
       addItems.addEventListener("submit", addItem);
       itemsList.addEventListener("click", toggleDone);
       populateList(items, itemsList);
+
+      function deleteAll() {
+        items.splice(0, items.length); // will delete all items
+        populateList(items, itemsList); // will update the list
+        localStorage.setItem("items", JSON.stringify(items)); // will push changes to local storage
+      }
+      function checkAll() {
+        console.log("check all");
+      }
+      deleteItems.addEventListener("click", deleteAll);
+      checkItems.addEventListener("click", checkAll);
     </script>
   </body>
 </html>
