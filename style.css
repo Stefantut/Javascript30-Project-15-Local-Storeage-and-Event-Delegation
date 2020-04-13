@@ -56,6 +56,8 @@ h2 {
 .plates label {
   flex: 1;
   cursor: pointer;
+  text-transform: capitalize;
+  color: firebrick;
 }
 
 .plates input {
@@ -69,6 +71,7 @@ h2 {
 
 .plates input:checked + label:before {
   content: "🌮";
+  margin-right: 5px;
 }
 
 .add-items {
@@ -82,6 +85,8 @@ h2 {
 }
 .add-items input[type="submit"]:hover {
   cursor: pointer;
+  background-color: tomato;
+  color: whitesmoke;
 }
 .buttons {
   padding: 20px 0;
@@ -90,7 +95,11 @@ h2 {
   padding: 5px;
   outline: 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 5px 2px;
+  transition: 0.2s ease-in;
 }
 .button:hover {
   cursor: pointer;
+  background-color: tomato;
+  color: whitesmoke;
 }
