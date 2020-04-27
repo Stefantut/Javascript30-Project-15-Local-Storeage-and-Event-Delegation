@@ -63,14 +63,15 @@
     <script>
       const addItems = document.querySelector(".add-items");
       const itemsList = document.querySelector(".plates");
-      // to retrieve list items on load from local storage
-      const items = JSON.parse(localStorage.getItem("items")) || [];
 
       const deleteItems = document.querySelector(".delete-all");
       const checkItems = document.querySelector(".check-all");
       const uncheckItems = document.querySelector(".uncheck-all");
       const toggleItems = document.querySelector(".toggle");
       const sortAZ = document.querySelector(".sort-a-z");
+
+      // to retrieve list items on load from local storage
+      const items = JSON.parse(localStorage.getItem("items")) || [];
 
       function addItem(e) {
         e.preventDefault();
